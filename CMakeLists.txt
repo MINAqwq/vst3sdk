@@ -10,8 +10,6 @@ endif()
 #-------------------------------------------------------------------------------
 # Options
 #-------------------------------------------------------------------------------
-# Add VST 3 Plug-ins Samples
-option(SMTG_ADD_VST3_PLUGINS_SAMPLES "Add VST 3 Plug-ins Samples to the solution" ON)
 
 # Add and use VSTGUI (enable VST 3 Plug-ins Samples using VSTGUI)
 option(SMTG_ADD_VSTGUI "Add VSTGUI Support" ON)
@@ -110,7 +108,7 @@ add_subdirectory(public.sdk/samples/vst-utilities)
 # (by default we add the HelloWorld included in my_plugins folder)
 #-------------------------------------------------------------------------------
 if(SMTG_ADD_MYPLUGINS_SRC_PATH)
-    set(SMTG_MYPLUGINS_SRC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../my_plugins" CACHE PATH "Here you can add Your VST 3 plug-ins folder")
+    set(SMTG_MYPLUGINS_SRC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../plugins")
 
     if(EXISTS ${SMTG_MYPLUGINS_SRC_PATH})
         message(STATUS "[SMTG] SMTG_MYPLUGINS_SRC_PATH is set to: " ${SMTG_MYPLUGINS_SRC_PATH})
@@ -118,19 +116,12 @@ if(SMTG_ADD_MYPLUGINS_SRC_PATH)
         message(STATUS "[SMTG] SMTG_MYPLUGINS_SRC_PATH is not set. If you want to add your own Plug-ins folder, specify it!")
     endif()
 
-    set(SDK_IDE_MYPLUGINS_FOLDER FOLDER "MyPlugIns")
+    set(SDK_IDE_MYPLUGINS_FOLDER FOLDER "plugins")
     if(EXISTS ${SMTG_MYPLUGINS_SRC_PATH})
         set(SMTG_MYPLUGINS_BIN_PATH "${SMTG_MYPLUGINS_SRC_PATH}/build")
         add_subdirectory(${SMTG_MYPLUGINS_SRC_PATH} ${SMTG_MYPLUGINS_BIN_PATH})
     endif()
 endif(SMTG_ADD_MYPLUGINS_SRC_PATH)
-
-#---Add VST 3 examples (plug-ins and hosting)-----
-if(SMTG_ADD_VST3_PLUGINS_SAMPLES)
-    set(SDK_IDE_PLUGIN_EXAMPLES_FOLDER FOLDER "PlugInExamples")
-    add_subdirectory(public.sdk/samples/vst)
-    add_subdirectory(public.sdk/source/vst/auv3wrapper)
-endif(SMTG_ADD_VST3_PLUGINS_SAMPLES)
 
 #-------------------------------------------------------------------------------
 # IDE sorting
